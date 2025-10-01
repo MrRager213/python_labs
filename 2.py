@@ -1,5 +1,0 @@
-a = float(input().replace(',', '.'))
-b = float(input().replace(',', '.'))
-print(f'a: {a:.2f}')
-print(f'b: {b:.2f}')
-print(f'sum={a + b:.2f}; avg={(a + b)/ 2:.2f}')
