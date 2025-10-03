@@ -81,3 +81,131 @@ while t > e:
 print(k)
 ```
 ![Картинка 7](./images/lab_01/image_7.png)
+
+
+## Лабораторная работа 2
+
+### Задание A1
+```python
+def min_max(matrix):
+    if not matrix: return 'ValueError'
+    new_list = []
+    for i in matrix:
+        new_list.append(i)
+    return (min(new_list), max(new_list))
+```
+![Картинка 1](./images/lab_02/image_A1.png)
+
+### Задание A2
+```python
+def unique_sorted(matrix):
+    if not matrix: return 'ValueError'
+    new_list = sorted(list(set(matrix)))
+    return new_list
+```
+![Картинка 1](./images/lab_02/image_A2.png)
+
+### Задание A3
+```python
+def flatten(matrix):
+    new_list = []
+    for i in matrix:
+        if type(i) != list:
+            if type(i) == tuple: new_list += list(i)
+            else: return 'ValueError'
+        else: new_list += i
+    return new_list
+```
+![Картинка 1](./images/lab_02/image_A3.png)
+
+
+### Задание B1
+```python
+def check(matrix):
+    if not matrix: return True
+    k = len(matrix[0])
+    for i in matrix:
+        if len(i) != k: return False
+    return True
+
+
+def transpose(matrix: list[list[float | int]]) -> list[list]:
+    if not check(matrix): return 'ValueError'
+    if not matrix: return []
+    new_list = []
+    for i in range(len(matrix[0])):
+        new_list.append([])
+    for i in matrix:
+        n = 0
+        for j in i:
+            new_list[n].append(j)
+            n += 1
+    return new_list
+```
+![Картинка 2](./images/lab_02/image_B1.png)
+
+### Задание B2
+```python
+def check(matrix):
+    if not matrix: return True
+    k = len(matrix[0])
+    for i in matrix:
+        if len(i) != k: return False
+    return True
+
+
+def row_sums(matrix: list[list[float | int]]) -> list[float]:
+    if not check(matrix): return 'ValueError'
+    if not matrix: return 'ValueError'
+    new_list = []
+    for i in matrix:
+        new_list.append(sum(i))
+    return new_list
+```
+![Картинка 2](./images/lab_02/image_B2.png)
+
+### Задание B3
+```python
+def check(matrix):
+    if not matrix: return True
+    k = len(matrix[0])
+    for i in matrix:
+        if len(i) != k: return False
+    return True
+
+
+def col_sums(matrix: list[list[float | int]]) -> list[float]:
+    if not check(matrix): return 'ValueError'
+    if not matrix: return 'ValueError'
+    new_list1 = []
+    if type(matrix[0]) != list: return matrix
+    for i in range(len(matrix[0])):
+        new_list1.append([])
+    for i in matrix:
+        for k in range(len(i)):
+            new_list1[k].append(i[k])
+            new_list = []
+    for i in new_list1:
+        new_list.append(sum(i))
+    return new_list
+```
+![Картинка 2](./images/lab_02/image_B3.png)
+
+### Задание C
+```python
+def col_sums(matrix: list[list[float | int]]) -> list[float]:
+    if not check(matrix): return 'ValueError'
+    if not matrix: return 'ValueError'
+    new_list1 = []
+    if type(matrix[0]) != list: return matrix
+    for i in range(len(matrix[0])):
+        new_list1.append([])
+    for i in matrix:
+        for k in range(len(i)):
+            new_list1[k].append(i[k])
+            new_list = []
+    for i in new_list1:
+        new_list.append(sum(i))
+    return new_list
+```
+![Картинка 3](./images/lab_02/image_C.png)
