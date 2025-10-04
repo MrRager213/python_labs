@@ -1,7 +1,7 @@
 def format_record(rec: tuple[str, str, float]) -> str:
     group, gpa = rec[1], rec[2]
     name = rec[0].split()
-    fio = name[0][0].upper() + name[0][1:] + ' ' + name[1][0].upper() + '.'
+    fio = name[0].capitalize() + ' ' + name[1][0].upper() + '.'
     if len(name) == 3:
         fio += ' '
         fio += name[-1][0].upper() + '.'
