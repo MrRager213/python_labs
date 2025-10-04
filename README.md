@@ -103,7 +103,7 @@ def unique_sorted(matrix):
     new_list = sorted(list(set(matrix)))
     return new_list
 ```
-![Картинка 1](./images/lab_02/image_A2.png)
+![Картинка 2](./images/lab_02/image_A2.png)
 
 ### Задание A3
 ```python
@@ -116,7 +116,7 @@ def flatten(matrix):
         else: new_list += i
     return new_list
 ```
-![Картинка 1](./images/lab_02/image_A3.png)
+![Картинка 3](./images/lab_02/image_A3.png)
 
 
 ### Задание B1
@@ -142,7 +142,7 @@ def transpose(matrix: list[list[float | int]]) -> list[list]:
             n += 1
     return new_list
 ```
-![Картинка 2](./images/lab_02/image_B1.png)
+![Картинка 4](./images/lab_02/image_B1.png)
 
 ### Задание B2
 ```python
@@ -162,7 +162,7 @@ def row_sums(matrix: list[list[float | int]]) -> list[float]:
         new_list.append(sum(i))
     return new_list
 ```
-![Картинка 2](./images/lab_02/image_B2.png)
+![Картинка 5](./images/lab_02/image_B2.png)
 
 ### Задание B3
 ```python
@@ -189,7 +189,7 @@ def col_sums(matrix: list[list[float | int]]) -> list[float]:
         new_list.append(sum(i))
     return new_list
 ```
-![Картинка 2](./images/lab_02/image_B3.png)
+![Картинка 6](./images/lab_02/image_B3.png)
 
 ### Задание C
 ```python
@@ -208,4 +208,4 @@ def col_sums(matrix: list[list[float | int]]) -> list[float]:
         new_list.append(sum(i))
     return new_list
 ```
-![Картинка 3](./images/lab_02/image_C.png)
+![Картинка 7](./images/lab_02/image_C.png)
