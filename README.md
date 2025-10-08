@@ -89,10 +89,11 @@ print(k)
 ```python
 def min_max(matrix):
     if not matrix: return 'ValueError'
-    new_list = []
+    min, max = 99999999, -99999999
     for i in matrix:
-        new_list.append(i)
-    return (min(new_list), max(new_list))
+        if i > max: max = i
+        elif i < min: min = i
+    return (min, max)
 ```
 ![Картинка 1](./images/lab_02/image_A1.png)
 
@@ -203,3 +204,7 @@ def format_record(rec: tuple[str, str, float]) -> str:
     return f'{fio}, гр. {group}, GPA {gpa:.2f}'
 ```
 ![Картинка 7](./images/lab_02/image_C.png)
+
+## Лабораторная работа 3
+
+### Задача A

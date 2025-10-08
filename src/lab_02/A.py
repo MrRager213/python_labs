@@ -1,9 +1,10 @@
 def min_max(matrix):
     if not matrix: return 'ValueError'
-    new_list = []
+    min, max = 99999999, -99999999
     for i in matrix:
-        new_list.append(i)
-    return (min(new_list), max(new_list))
+        if i > max: max = i
+        elif i < min: min = i
+    return (min, max)
 
 
 def unique_sorted(matrix):
@@ -20,7 +21,6 @@ def flatten(matrix):
             else: return 'ValueError'
         else: new_list += i
     return new_list
-
 
 
 print('[3, -1, 5, 5, 0] -', min_max([3, -1, 5, 5, 0]))
