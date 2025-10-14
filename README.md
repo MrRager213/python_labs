@@ -230,4 +230,4 @@ def top_n(freq: dict[str, int], n: int = 5) -> list[tuple[str, int]]:
         top_n.append((freq[i][0], freq[i][1]))
     return top_n
 ```
-![Картинка 3](./images/lab_03/image_Count_freq + top_n.png)
+![Картинка 3](./images/lab_03/image_Count_freq_top_n.png)
