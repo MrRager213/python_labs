@@ -1,22 +1,4 @@
-def min_max(matrix):
-    if not matrix: return 'ValueError'
-    return (min(matrix), max(matrix))
-
-
-def unique_sorted(matrix):
-    if not matrix: return 'ValueError'
-    return sorted(list(set(matrix)))
-
-
-def flatten(matrix):
-    new_list = []
-    for i in matrix:
-        if type(i) != list:
-            if type(i) == tuple: new_list += list(i)
-            else: return 'ValueError'
-        else: new_list += i
-    return new_list
-
+from src.lib.text import min_max, unique_sorted, flatten
 
 print('[3, -1, 5, 5, 0] -', min_max([3, -1, 5, 5, 0]))
 print('[42] -', min_max([42]))

@@ -129,8 +129,7 @@ def transpose(matrix: list[list[float | int]]) -> list[list]:
     if not check(matrix): return 'ValueError'
     if not matrix: return []
     new_list = []
-    for i in range(len(matrix[0])):
-        new_list.append([])
+    new_list = [[]for i in range(len(matrix[0]))]
     for i in matrix:
         n = 0
         for j in i:

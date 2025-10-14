@@ -1,13 +1,4 @@
-def format_record(rec: tuple[str, str, float]) -> str:
-    group, gpa = rec[1], rec[2]
-    name = rec[0].split()
-    fio = name[0].capitalize() + ' ' + name[1][0].upper() + '.'
-    if len(name) == 3:
-        fio += ' '
-        fio += name[-1][0].upper() + '.'
-    return f'{fio}, гр. {group}, GPA {gpa:.2f}'
-
-
+from src.lib.text import format_record
 
 print()
 print()
