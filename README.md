@@ -89,11 +89,7 @@ print(k)
 ```python
 def min_max(matrix):
     if not matrix: return 'ValueError'
-    min, max = 99999999, -99999999
-    for i in matrix:
-        if i > max: max = i
-        elif i < min: min = i
-    return (min, max)
+    return (min(matrix), max(matrix))
 ```
 ![Картинка 1](./images/lab_02/image_A1.png)
 
@@ -101,8 +97,7 @@ def min_max(matrix):
 ```python
 def unique_sorted(matrix):
     if not matrix: return 'ValueError'
-    new_list = sorted(list(set(matrix)))
-    return new_list
+    return sorted(list(set(matrix)))
 ```
 ![Картинка 2](./images/lab_02/image_A2.png)
 
@@ -178,17 +173,7 @@ def check(matrix):
 def col_sums(matrix: list[list[float | int]]) -> list[float]:
     if not check(matrix): return 'ValueError'
     if not matrix: return 'ValueError'
-    new_list1 = []
-    if type(matrix[0]) != list: return matrix
-    for i in range(len(matrix[0])):
-        new_list1.append([])
-    for i in matrix:
-        for k in range(len(i)):
-            new_list1[k].append(i[k])
-            new_list = []
-    for i in new_list1:
-        new_list.append(sum(i))
-    return new_list
+    return row_sums(transpose(matrix))
 ```
 ![Картинка 6](./images/lab_02/image_B3.png)
 

@@ -1,16 +1,11 @@
 def min_max(matrix):
     if not matrix: return 'ValueError'
-    min, max = 99999999, -99999999
-    for i in matrix:
-        if i > max: max = i
-        if i < min: min = i
-    return (min, max)
+    return (min(matrix), max(matrix))
 
 
 def unique_sorted(matrix):
     if not matrix: return 'ValueError'
-    new_list = sorted(list(set(matrix)))
-    return new_list
+    return sorted(list(set(matrix)))
 
 
 def flatten(matrix):

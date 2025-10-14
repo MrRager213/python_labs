@@ -32,17 +32,7 @@ def row_sums(matrix: list[list[float | int]]) -> list[float]:
 def col_sums(matrix: list[list[float | int]]) -> list[float]:
     if not check(matrix): return 'ValueError'
     if not matrix: return 'ValueError'
-    new_list1 = []
-    if type(matrix[0]) != list: return matrix
-    for i in range(len(matrix[0])):
-        new_list1.append([])
-    for i in matrix:
-        for k in range(len(i)):
-            new_list1[k].append(i[k])
-            new_list = []
-    for i in new_list1:
-        new_list.append(sum(i))
-    return new_list
+    return row_sums(transpose(matrix))
 
 
 print('[[1, 2, 3]] -', transpose([[1, 2, 3]]))
