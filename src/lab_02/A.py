@@ -3,7 +3,7 @@ def min_max(matrix):
     min, max = 99999999, -99999999
     for i in matrix:
         if i > max: max = i
-        elif i < min: min = i
+        if i < min: min = i
     return (min, max)
 
 
