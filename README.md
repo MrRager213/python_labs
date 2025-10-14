@@ -192,3 +192,44 @@ def format_record(rec: tuple[str, str, float]) -> str:
 ## Лабораторная работа 3
 
 ### Задача A
+
+### Normalize
+```python
+def normalize(text: str, *, casefold: bool = True, yo2e: bool = True) -> str:
+    if casefold:
+        text = text.casefold()
+    if yo2e:
+        text = text.replace("ё", "е").replace("Ё", "Е")
+    if '\t' in text or '\r' in text or '\n' in text:
+        text = text.replace("\t", " ").replace("\r", " ").replace("\n", " ")
+    while "  " in text:
+        text = text.replace(" " * 2, " ")
+    return text.strip()
+```
+![Картинка 1](./images/lab_03/image_Normalize.png)
+
+### Tokenize
+```python
+def tokenize(text: str) -> list[str]:
+    return [i.group() for i in finditer(pattern=r"\w+(?:-\w+)*", string=text)]
+```
+![Картинка 2](./images/lab_03/image_Tokenize.png)
+
+### Count_freq + top_n
+```python
+def count_freq(tokens: list[str]) -> dict[str, int]:
+    co = {}
+    for i in tokens:
+        if i in co: co[i] += 1
+        else:  co[i] = 1
+    return co
+
+
+def top_n(freq: dict[str, int], n: int = 5) -> list[tuple[str, int]]:
+    freq = sorted(freq.items(), key=lambda item: [-item[1], item[0]])
+    top_n = []
+    for i in range(min(n, len(freq))):
+        top_n.append((freq[i][0], freq[i][1]))
+    return top_n
+```
+![Картинка 3](./images/lab_03/image_Count_freq + top_n.png)
