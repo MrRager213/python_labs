@@ -191,9 +191,7 @@ def format_record(rec: tuple[str, str, float]) -> str:
 
 ## Лабораторная работа 3
 
-### Задача A
-
-### Normalize
+### Задача Normalize
 ```python
 def normalize(text: str, *, casefold: bool = True, yo2e: bool = True) -> str:
     if casefold:
@@ -208,14 +206,14 @@ def normalize(text: str, *, casefold: bool = True, yo2e: bool = True) -> str:
 ```
 ![Картинка 1](./images/lab_03/image_Normalize.png)
 
-### Tokenize
+### Задача Tokenize
 ```python
 def tokenize(text: str) -> list[str]:
     return [i.group() for i in finditer(pattern=r"\w+(?:-\w+)*", string=text)]
 ```
 ![Картинка 2](./images/lab_03/image_Tokenize.png)
 
-### Count_freq + top_n
+### Задача Count_freq + top_n
 ```python
 def count_freq(tokens: list[str]) -> dict[str, int]:
     co = {}
