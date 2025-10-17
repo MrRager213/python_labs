@@ -2,7 +2,7 @@ from src.lib.text import normalize, count_freq, top_n, tokenize
 
 print()
 
-print('ПрИвЕт\nМИр\t → ', normalize('ПрИвЕт\nМИр\t'))
+print('ПрИвЕт/nМИр/t → ', normalize('ПрИвЕт\nМИр\t'))
 print("ёжик, Ёлка (yo2e=True) →", normalize('ёжик, Ёлка', yo2e=True))
 print("Hello\r\nWorld  →", normalize('Hello\r\nWorld'))
 print("  двойные   пробелы  → ", normalize("  двойные   пробелы  "))
