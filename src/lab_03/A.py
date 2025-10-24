@@ -10,20 +10,20 @@ print("  двойные   пробелы  → ", normalize("  двойные   �
 print()
 print()
 
-print("привет мир → ", tokenize("привет мир → "))
-print("hello,world!!! → ", tokenize("hello,world!!! → "))
-print("по-настоящему круто → ", tokenize("по-настоящему круто → "))
-print("2025 год → ", tokenize("2025 год → "))
-print("emoji 😀 не слово → ", tokenize("emoji 😀 не слово → "))
+print("привет мир → ", tokenize("привет мир"))
+print("hello,world!!! → ", tokenize("hello,world!!!"))
+print("по-настоящему круто → ", tokenize("по-настоящему круто"))
+print("2007 год → ", tokenize("2007 год"))
+print("emoji 😀 не слово → ", tokenize("emoji 😀 не слово"))
 
 print()
 print()
 
-print('count_freq(["a","b","a","c","b","a"]) → ', count_freq(["a","b","a","c","b","a"]))
+print('count_freq(["a","b","a","c","b","a","a","c","b","a","a","c","b","a"]) → ', count_freq(["a","b","a","c","b","a","a","c","b","a","a","c","b","a"]))
 print()
-print('top_n(..., n=2) → ', top_n(count_freq(["a","b","a","c","b","a"])))
+print('top_n(..., n=2) → ', top_n(count_freq(["a","b","a","c","b","a","a","c","b","a","a","c","b","a"])))
 print()
-print('top_n(..., n=2) ["bb","aa","bb","aa","cc"]→ ', top_n(count_freq(["bb","aa","bb","aa","cc"]), n=2))
+print('top_n(..., n=4) ["bb","aa","bb","aa","cc", "bb","aa","cc", "bb","aa","cc"]→ ', top_n(count_freq(["bb","aa","bb","aa","cc", "bb","aa","cc", "bb","aa","cc"]), n=4))
 
 print()
 print()
