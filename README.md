@@ -259,11 +259,25 @@ def print_summary(text: str, is_table: bool, n: int = 5) -> None:
     if is_table:
         table(title="cлoво", description="частота", top=top)
     else:
-        for wi, jc in top:
+        for i, j in top:
             print(f"{i}:{j}")
+
+
+
 ```
 
 ```python
+import sys
+from ..lib.text import normalize
+from src.lib.table import print_summary
 
+
+def main():
+    """
+     IS_TABLE = True
+     print_summary(text=sys.stdin.read(), is_table=IS_TABLE)
+
+if __name__ == "__main__":
+    main()
 ```
 ![Картинка 4](./images/lab_03/image_text_stats.png)
