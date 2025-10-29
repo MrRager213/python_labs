@@ -329,7 +329,7 @@ def sorted_word_counts(freq: dict[str, int]) -> list[tuple[str, int]]:
 ### Задача text_report
 
 ```python
-from src.lib.io_txt_csv import (
+from src.lab_04.io_txt_csv import (
     read_text,
     write_csv,
     frequencies_from_text,
@@ -370,7 +370,7 @@ main()
 
 ```python
 from pathlib import Path
-from src.lib.io_txt_csv import ensure_parent_dir, write_csv
+from src.lab_04.io_txt_csv import ensure_parent_dir, write_csv
 import json
 import csv
 
@@ -429,7 +429,7 @@ def csv_to_json(
 
 ```python
 from pathlib import Path
-from src.lib.io_txt_csv import ensure_parent_dir
+from src.lab_04.io_txt_csv import ensure_parent_dir
 import csv
 from openpyxl import Workbook
 
