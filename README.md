@@ -425,7 +425,7 @@ def csv_to_json(
         json.dump(data_csv, json_file, indent=2)
 ```
 
-### Конвертация xlsx в csv и обратно
+### Конвертация csv в xlsx
 
 ```python
 from pathlib import Path
