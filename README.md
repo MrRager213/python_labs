@@ -370,7 +370,7 @@ main()
 
 ```python
 from pathlib import Path
-from src.lab_04.io_txt_csv import ensure_parent_dir, write_csv
+from src.lab_04.io_txt_csv import write_csv
 import json
 import csv
 
@@ -429,7 +429,6 @@ def csv_to_json(
 
 ```python
 from pathlib import Path
-from src.lab_04.io_txt_csv import ensure_parent_dir
 import csv
 from openpyxl import Workbook
 
