@@ -285,3 +285,181 @@ echo "Привет, мир! Привет!!!" | python -m src.lab_03.text_stats
 """
 ```
 ![Картинка 4](./images/lab_03/image_text_stats.png)
+
+## Лабораторная работа 4
+
+### Задача io_txt_csv
+
+```python
+from pathlib import Path
+import csv
+from typing import Iterable, Sequence
+from collections import Counter
+from src.lib.text import normalize, tokenize
+from pathlib import Path
+
+
+def read_text(path: str | Path, encoding: str = "utf-8") -> str:
+    p = Path(path)
+    return p.read_text(encoding=encoding)
+
+
+def write_csv(rows: Iterable[Sequence], path: str | Path,
+              header: tuple[str, ...] | None = None) -> None:
+    p = Path(path)
+    rows = list(rows)
+    with p.open("w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        if header is not None:
+            w.writerow(header)
+        for r in rows:
+            w.writerow(r)
+
+
+def frequencies_from_text(text: str) -> dict[str, int]:
+    tokens = tokenize(normalize(text))
+    return Counter(tokens)
+
+
+def sorted_word_counts(freq: dict[str, int]) -> list[tuple[str, int]]:
+    return sorted(freq.items(), key=lambda kv: (-kv[1], kv[0]))
+```
+
+
+### Задача text_report
+
+```python
+from src.lib.io_txt_csv import (
+    read_text,
+    write_csv,
+    frequencies_from_text,
+    sorted_word_counts,
+)
+import argparse
+from src.lib.table import print_summary
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Анализ текста и отчёт в CSV")
+    parser.add_argument("--in", dest="input", default="data/lab04/input.txt")
+    parser.add_argument("--out", dest="output", default="data/report.csv")
+    parser.add_argument("--encoding", dest="encoding", default="utf-8")
+    args = parser.parse_args()
+
+    text = read_text(
+        path=args.input,
+        encoding=args.encoding,
+    )
+    freq = frequencies_from_text(text)
+    data = sorted_word_counts(freq)
+
+    write_csv(
+        header=("word", "count"),
+        rows=data,
+        path=args.output,
+    )
+
+    print_summary(text=text, is_table=True)
+
+
+main()
+
+```
+
+### Конвертация json в csv и обратно
+
+```python
+from pathlib import Path
+from src.lib.io_txt_csv import ensure_parent_dir, write_csv
+import json
+import csv
+
+
+def json_to_csv(
+    json_path: str | Path, csv_path: str | Path, encoding: str = "utf-8"
+) -> None:
+    json_path = Path(json_path)
+
+    if not json_path.exists():
+        raise FileNotFoundError(f"Файл {json_path} не найден")
+
+    with json_path.open("r", encoding=encoding) as json_file:
+        try:
+            data_json = json.load(json_file)
+        except json.JSONDecodeError:
+            raise ValueError("Пустой JSON или неподдерживаемая структура")
+
+    if not data_json or not isinstance(data_json, list):
+        raise ValueError("Пустой JSON или неподдерживаемая структура")
+
+    if not all(isinstance(row, dict) for row in data_json):
+        raise ValueError("JSON должен содержать список словарей")
+
+    csv_path = Path(csv_path)
+    with csv_path.open("w", newline="", encoding=encoding) as f:
+        writer = csv.DictWriter(f, fieldnames=tuple(data_json[0].keys()))
+        writer.writeheader()
+        writer.writerows(data_json)
+
+
+def csv_to_json(
+    csv_path: str | Path, json_path: str | Path, encoding: str = "utf-8"
+) -> None:
+
+    csv_path = Path(csv_path)
+
+    if not csv_path.exists():
+        raise FileNotFoundError(f"CSV-файл {csv_path} не найден")
+
+    with csv_path.open("r", encoding=encoding) as csv_file:
+        reader = csv.DictReader(csv_file)
+        if not reader.fieldnames:
+            raise ValueError("CSV-файл не содержит заголовков или пуст")
+        data_csv = [row for row in reader]
+
+    if not data_csv:
+        raise ValueError("CSV-файл пуст")
+
+    json_path = Path(json_path)
+    with json_path.open("w", encoding=encoding) as json_file:
+        json.dump(data_csv, json_file, indent=2)
+```
+
+### Конвертация xlsx в csv и обратно
+
+```python
+from pathlib import Path
+from src.lib.io_txt_csv import ensure_parent_dir
+import csv
+from openpyxl import Workbook
+
+
+def csv_to_xlsx(
+    csv_path: str | Path,
+    xlsx_path: str | Path,
+    encoding: str = "utf-8",
+) -> None:
+    csv_path = Path(csv_path)
+
+    if not csv_path.exists():
+        raise FileNotFoundError(f"CSV-файл {csv_path} не найден")
+
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "Sheet1"
+
+    with csv_path.open("r", encoding=encoding) as csv_file:
+        reader = csv.DictReader(csv_file)
+
+        if not reader.fieldnames:
+            raise ValueError("CSV без заголовков или пуст")
+
+        ws.append(reader.fieldnames)
+
+        for row in reader:
+            ws.append([row[field] for field in reader.fieldnames])
+
+    xlsx_path = Path(xlsx_path)
+    wb.save(xlsx_path)
+
+```

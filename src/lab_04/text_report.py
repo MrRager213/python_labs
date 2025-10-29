@@ -32,15 +32,3 @@ def main():
 
 
 main()
-
-
-places = [
-    {
-        "title": "awda",
-        "category": "напитки",
-        "subcategory": "",
-        "is_cute": "комфортно",
-        "url": "",
-    },
-    {},
-]
