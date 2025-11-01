@@ -1,2 +1,8 @@
-name, age = input(), int(input()) + 1
-print(f'Привет, {name}! Через год тебе будет {age}.')
+try:
+    print(0)
+except:
+    print(1)
+else:
+    print(2)
+finally:
+    print(3)
