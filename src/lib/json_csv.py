@@ -1,5 +1,5 @@
 from pathlib import Path
-from src.lib.io_txt_csv import ensure_parent_dir, write_csv
+from src.lib.io_txt_csv import write_csv
 import json
 import csv
 
