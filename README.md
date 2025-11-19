@@ -472,13 +472,11 @@ def csv_to_xlsx(
 ```python
 
 import argparse
-from pathlib import Path
-
+from pathlib import path
 from src.lib.text import count_freq, tokenize, top_n
 
 
 def main():
-
     parser = argparse.ArgumentParser(description="CLI-утилиты лабораторной №6")
 
     subparsers = parser.add_subparsers(dest="command")
@@ -537,7 +535,6 @@ if __name__ == "__main__":
 ```python
 
 import argparse
-
 from src.lib.cvs_xlsx import csv_to_xlsx
 from src.lib.json_csv import csv_to_json, json_to_csv
 
