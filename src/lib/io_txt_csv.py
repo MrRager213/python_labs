@@ -6,6 +6,12 @@ from src.lib.text import normalize, tokenize
 from pathlib import Path
 
 
+def ensure_parent_dir(path: str | Path) -> None:
+    p = Path(path)
+    if p.parent and not p.parent.exists():
+        p.parent.mkdir(parents=True, exist_ok=True)
+
+
 def read_text(path: str | Path, encoding: str = "utf-8") -> str:
     p = Path(path)
     return p.read_text(encoding=encoding)
