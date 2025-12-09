@@ -1,13 +1,16 @@
 ## Лабораторная работа 1
 
 ### Задание 1
+
 ```python
 name, age = input(), int(input()) + 1
 print(f'Привет, {name}! Через год тебе будет {age}.')
 ```
+
 ![Картинка 1](./images/lab_01/image_1.png)
 
 ### Задание 2
+
 ```python
 a = float(input().replace(',', '.'))
 b = float(input().replace(',', '.'))
@@ -15,9 +18,11 @@ print(f'a: {a:.2f}')
 print(f'b: {b:.2f}')
 print(f'sum={a + b:.2f}; avg={(a + b)/ 2:.2f}')
 ```
+
 ![Картинка 2](./images/lab_01/image_2.png)
 
 ### Задание 3
+
 ```python
 pri = int(input())
 dis = int(input())
@@ -26,26 +31,32 @@ print(f'База после скидки: {pri * (1 - dis/100):.2f} ₽')
 print(f'НДС:               {pri * (1 - dis / 100) * vat / 100:.2f} ₽')
 print(f'Итого к оплате:    {pri * (1 - dis / 100) * (1 + vat / 100):.2f} ₽')
 ```
+
 ![Картинка 3](./images/lab_01/image_3.png)
 
 ### Задание 4
+
 ```python
 a = int(input())
 print(f'Минуты: {a}')
 print(f'{a//60}:{a % 60}')
 ```
+
 ![Картинка 4](./images/lab_01/image_4.png)
 
 ### Задание 5
+
 ```python
 a, b, c = input().split()
 print(f'ФИО: {a} {b} {c}')
 print(f'Инициалы: {a[0]}{b[0]}{c[0]}')
 print(len(a) + 2 + len(b) + len(c))
 ```
+
 ![Картинка 5](./images/lab_01/image_5.png)
 
 ### Задание 6
+
 ```python
 a, b = 0, 0
 for i in range(int(input())):
@@ -54,9 +65,11 @@ for i in range(int(input())):
     else: b += 1
 print(a, b)
 ```
+
 ![Картинка 6](./images/lab_01/image_6.png)
 
 ### Задание 7
+
 ```python
 s, a, k, e, abc, p = input(), '0987654321', '', 0, 'ASDFGHJKLQWERTYUIOPZXCVBNM', 's'
 for i in s:
@@ -80,12 +93,14 @@ while t > e:
     t -= (e + 1)
 print(k)
 ```
+
 ![Картинка 7](./images/lab_01/image_7.png)
 
 
 ## Лабораторная работа 2
 
 ### Задание A1
+
 ```python
 def min_max(matrix):
     if not matrix: return 'ValueError'
@@ -94,6 +109,7 @@ def min_max(matrix):
 ![Картинка 1](./images/lab_02/image_A1.png)
 
 ### Задание A2
+
 ```python
 def unique_sorted(matrix):
     if not matrix: return 'ValueError'
@@ -102,6 +118,7 @@ def unique_sorted(matrix):
 ![Картинка 2](./images/lab_02/image_A2.png)
 
 ### Задание A3
+
 ```python
 def flatten(matrix):
     new_list = []
@@ -112,10 +129,12 @@ def flatten(matrix):
         else: new_list += i
     return new_list
 ```
+
 ![Картинка 3](./images/lab_02/image_A3.png)
 
 
 ### Задание B1
+
 ```python
 def check(matrix):
     if not matrix: return True
@@ -137,9 +156,11 @@ def transpose(matrix: list[list[float | int]]) -> list[list]:
             n += 1
     return new_list
 ```
+
 ![Картинка 4](./images/lab_02/image_B1.png)
 
 ### Задание B2
+
 ```python
 def check(matrix):
     if not matrix: return True
@@ -157,9 +178,11 @@ def row_sums(matrix: list[list[float | int]]) -> list[float]:
         new_list.append(sum(i))
     return new_list
 ```
+
 ![Картинка 5](./images/lab_02/image_B2.png)
 
 ### Задание B3
+
 ```python
 def check(matrix):
     if not matrix: return True
@@ -174,9 +197,11 @@ def col_sums(matrix: list[list[float | int]]) -> list[float]:
     if not matrix: return 'ValueError'
     return row_sums(transpose(matrix))
 ```
+
 ![Картинка 6](./images/lab_02/image_B3.png)
 
 ### Задание C
+
 ```python
 def format_record(rec: tuple[str, str, float]) -> str:
     group, gpa = rec[1], rec[2]
@@ -187,11 +212,13 @@ def format_record(rec: tuple[str, str, float]) -> str:
         fio += name[-1][0].upper() + '.'
     return f'{fio}, гр. {group}, GPA {gpa:.2f}'
 ```
+
 ![Картинка 7](./images/lab_02/image_C.png)
 
 ## Лабораторная работа 3
 
 ### Задача Normalize
+
 ```python
 def normalize(text: str, *, casefold: bool = True, yo2e: bool = True) -> str:
     if casefold:
@@ -208,6 +235,7 @@ def normalize(text: str, *, casefold: bool = True, yo2e: bool = True) -> str:
 ![Картинка 1](./images/lab_03/image_Normalize.png)
 
 ### Задача Tokenize
+
 ```python
 def tokenize(text: str) -> list[str]:
     return [i.group() for i in finditer(pattern=r"\w+(?:-\w+)*", string=text)]
@@ -215,6 +243,7 @@ def tokenize(text: str) -> list[str]:
 ![Картинка 2](./images/lab_03/image_Tokenize.png)
 
 ### Задача Count_freq + top_n
+
 ```python
 def count_freq(tokens: list[str]) -> dict[str, int]:
     co = {}
@@ -234,6 +263,7 @@ def top_n(freq: dict[str, int], n: int = 5) -> list[tuple[str, int]]:
 ![Картинка 3](./images/lab_03/image_Count_freq_top_n.png)
 
 ### Задача text_stats
+
 ```python
 from src.lib.text import count_freq, top_n, normalize, tokenize
 
@@ -660,9 +690,9 @@ class TestNormalize:
             ("ёжик, Ёлка", "ежик, елка"),
             ("Hello\r\nWorld", "hello world"),
             ("  двойные   пробелы  ", "двойные пробелы"),
-            ("", ""),  # пустая строка
-            ("   ", ""),  # только пробелы
-            ("\n\t\r   ", ""),  # управляющие символы и пробелы
+            ("", ""),
+            ("   ", ""),
+            ("\n\t\r   ", ""),
             (
                 "Съешь ещё этих мягких французских булок",
                 "съешь еще этих мягких французских булок",
@@ -685,8 +715,8 @@ class TestTokenize:
             ("привет мир", ["привет", "мир"]),
             ("Hello World", ["hello", "world"]),
             ("раз-два-три", ["раз", "два", "три"]),
-            ("", []),  # пустая строка
-            ("!!! ??? ...", []),  # только пунктуация
+            ("", []),
+            ("!!! ??? ...", []),
             ("word1 word2 word3", ["word1", "word2", "word3"]),
             ("Он сказал: 'Привет!'", ["он", "сказал", "привет"]),
         ],
@@ -765,7 +795,6 @@ class TestIntegration:
         assert freq == expected_freq
 
         top = top_n(freq, 2)
-        # При равенстве частот сортировка по алфавиту: "мир", потом "привет"
         assert top == [("мир", 2), ("привет", 2)]
 
 ```
@@ -1010,8 +1039,8 @@ class Group:
         csv_to_json(self.path, json_path)
 ```
 
-## Пример работы
+### Пример работы
 
 ![Картинка 1](./images/lab_09.png)
 
-### Лабораторная работа 10
+## Лабораторная работа 10
