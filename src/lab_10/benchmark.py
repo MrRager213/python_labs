@@ -168,7 +168,7 @@ def compare_structures():
     start = time.time()
     for i in range(n):
         lst_queue.append(i)
-    list_queue_enqueue_time = time.time() - start
+    time.time() - start
 
     start = time.time()
     for _ in range(n):

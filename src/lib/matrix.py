@@ -13,8 +13,8 @@ def unique_sorted(matrix):
 def flatten(matrix):
     new_list = []
     for i in matrix:
-        if type(i) != list:
-            if type(i) == tuple:
+        if type(i) is not list:
+            if isinstance(i, tuple):
                 new_list += list(i)
             else:
                 return "ValueError"

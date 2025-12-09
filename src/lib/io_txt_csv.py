@@ -3,7 +3,6 @@ import csv
 from typing import Iterable, Sequence
 from collections import Counter
 from src.lib.text import normalize, tokenize
-from pathlib import Path
 
 
 def ensure_parent_dir(path: str | Path) -> None:

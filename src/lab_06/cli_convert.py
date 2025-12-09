@@ -5,7 +5,6 @@ from src.lib.json_csv import csv_to_json, json_to_csv
 
 
 def main():
-
     parser = argparse.ArgumentParser(description="CLI-утилиты лабораторной №6")
 
     subparsers = parser.add_subparsers(dest="command")

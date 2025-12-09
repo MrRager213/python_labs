@@ -579,6 +579,230 @@ if __name__ == "__main__":
 
 ```
 
+## Лабораторная работа 7
+
+### test_json_csv
+
+```python
+import csv
+import json
+from pathlib import Path
+
+import pytest
+
+from src.lib.json_csv import csv_to_json, json_to_csv
+
+
+def write_json(path: Path, obj):
+    path.write_text(json.dumps(obj, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def read_csv_rows(path: Path):
+    with path.open(encoding="utf-8") as f:
+        return list(csv.DictReader(f))
+
+
+def test_json_to_csv_roundtrip(tmp_path: Path):
+    src = tmp_path / "people.json"
+    dst = tmp_path / "people.csv"
+    data = [{"name": "Alice", "age": 22}, {"name": "Bob", "age": 25}]
+    write_json(src, data)
+
+    json_to_csv(str(src), str(dst))
+    rows = read_csv_rows(dst)
+    assert len(rows) == 2
+    assert set(rows[0]) >= {"name", "age"}
+
+
+def test_csv_to_json_roundtrip(tmp_path: Path):
+    src = tmp_path / "people.csv"
+    dst = tmp_path / "people.json"
+    src.write_text("name,age\nAlice,22\nBob,25\n", encoding="utf-8")
+
+    csv_to_json(str(src), str(dst))
+    obj = json.loads(dst.read_text(encoding="utf-8"))
+    assert isinstance(obj, list) and len(obj) == 2
+    assert set(obj[0]) == {"name", "age"}
+
+
+def test_json_to_csv_empty_raises(tmp_path: Path):
+    src = tmp_path / "empty.json"
+    src.write_text("[]", encoding="utf-8")
+    with pytest.raises(ValueError):
+        json_to_csv(str(src), str(tmp_path / "out.csv"))
+
+
+def test_csv_to_json_no_header_raises(tmp_path: Path):
+    src = tmp_path / "bad.csv"
+    src.write_text("", encoding="utf-8")
+    with pytest.raises(ValueError):
+        csv_to_json(str(src), str(tmp_path / "out.json"))
+
+
+def test_missing_file_raises():
+    with pytest.raises(FileNotFoundError):
+        csv_to_json("nope.csv", "out.json")
+
+```
+
+### test_text
+
+```python
+import pytest
+from src.lib.text import normalize, tokenize, count_freq, top_n
+
+
+class TestNormalize:
+    @pytest.mark.parametrize(
+        "source, expected",
+        [
+            ("ПрИвЕт\nМИр\t", "привет мир"),
+            ("ёжик, Ёлка", "ежик, елка"),
+            ("Hello\r\nWorld", "hello world"),
+            ("  двойные   пробелы  ", "двойные пробелы"),
+            ("", ""),  # пустая строка
+            ("   ", ""),  # только пробелы
+            ("\n\t\r   ", ""),  # управляющие символы и пробелы
+            (
+                "Съешь ещё этих мягких французских булок",
+                "съешь еще этих мягких французских булок",
+            ),
+        ],
+    )
+    def test_normalize(self, source, expected):
+        assert normalize(source) == expected
+
+    def test_normalize_preserves_punctuation(self):
+        text = "Привет, мир! Как дела?"
+        result = normalize(text)
+        assert "привет, мир! как дела?" == result
+
+
+class TestTokenize:
+    @pytest.mark.parametrize(
+        "source, expected",
+        [
+            ("привет мир", ["привет", "мир"]),
+            ("Hello World", ["hello", "world"]),
+            ("раз-два-три", ["раз", "два", "три"]),
+            ("", []),  # пустая строка
+            ("!!! ??? ...", []),  # только пунктуация
+            ("word1 word2 word3", ["word1", "word2", "word3"]),
+            ("Он сказал: 'Привет!'", ["он", "сказал", "привет"]),
+        ],
+    )
+    def test_tokenize(self, source, expected):
+        assert tokenize(source) == expected
+
+    def test_tokenize_case_insensitive(self):
+        text = "Привет МИР Hello WORLD"
+        result = tokenize(text)
+        assert result == ["привет", "мир", "hello", "world"]
+
+
+class TestCountFreq:
+    def test_count_freq_basic(self):
+        tokens = ["я", "люблю", "python", "python", "люблю", "я", "я"]
+        result = count_freq(tokens)
+        expected = {"я": 3, "люблю": 2, "python": 2}
+        assert result == expected
+
+        assert count_freq([]) == {}
+
+    def test_count_freq_single(self):
+        assert count_freq(["слово"]) == {"слово": 1}
+
+    def test_count_freq_special_chars(self):
+        tokens = ["word", "word", "word2", "word2", "word2"]
+        result = count_freq(tokens)
+        assert result["word"] == 2
+        assert result["word2"] == 3
+
+
+class TestTopN:
+    def test_top_n_basic(self):
+        freq = {"я": 5, "ты": 3, "он": 7, "она": 2}
+        result = top_n(freq, 3)
+        expected = [("он", 7), ("я", 5), ("ты", 3)]
+        assert result == expected
+
+    def test_top_n_tie_breaker(self):
+        freq = {"яблоко": 3, "апельсин": 3, "банан": 3, "груша": 2}
+        result = top_n(freq, 3)
+        expected = [("апельсин", 3), ("банан", 3), ("яблоко", 3)]
+        assert result == expected
+
+    def test_top_n_more_than_available(self):
+        freq = {"а": 1, "б": 2}
+        result = top_n(freq, 10)
+        assert len(result) == 2
+        assert result == [("б", 2), ("а", 1)]
+
+    def test_top_n_empty_dict(self):
+        assert top_n({}, 5) == []
+
+    def test_top_n_zero_n(self):
+        freq = {"а": 1, "б": 2}
+        assert top_n(freq, 0) == []
+
+    def test_top_n_negative_n(self):
+        freq = {"а": 1, "б": 2}
+        assert top_n(freq, -1) == []
+
+
+class TestIntegration:
+    def test_full_pipeline(self):
+        text = "Привет мир! Привет всем. Мир прекрасен."
+
+        normalized = normalize(text)
+        assert normalized == "привет мир! привет всем. мир прекрасен."
+
+        tokens = tokenize(normalized)
+        assert tokens == ["привет", "мир", "привет", "всем", "мир", "прекрасен"]
+
+        freq = count_freq(tokens)
+        expected_freq = {"привет": 2, "мир": 2, "всем": 1, "прекрасен": 1}
+        assert freq == expected_freq
+
+        top = top_n(freq, 2)
+        # При равенстве частот сортировка по алфавиту: "мир", потом "привет"
+        assert top == [("мир", 2), ("привет", 2)]
+
+```
+
+### Результаты теста
+
+![Картинка 1](./images/cov_test.png)
+
+### Результаты black
+
+![Картинка 2](./images/black_test.png)
+
+### Результаты ruff
+
+![Картинка 3](./images/ruff_test.png)
+
+### pyproject.toml
+
+```python
+[build-system]
+requires = ["setuptools >= 77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "python-labs"
+version = "1.0.0"
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-cov>=5.0.0",
+    "black>=24.0.0",
+]
+```
+
+
 ## Лабораторная работа 8
 
 ### Создание класса
@@ -659,4 +883,135 @@ def students_from_json(path: str) -> List[Student]:
 
 ## Лабораторная работа 9
 
-###
+### group
+
+```python
+import csv
+from pathlib import Path
+from typing import List, Dict, Any
+from src.lab_08.models import Student
+from src.lib.io_txt_csv import ensure_parent_dir, write_csv
+from src.lib.json_csv import csv_to_json
+
+
+class Group:
+    def __init__(self, storage_path: str):
+        self.path = Path(storage_path)
+        self._ensure_storage_exists()
+
+    def _ensure_storage_exists(self) -> None:
+        if not self.path.exists():
+            ensure_parent_dir(self.path)
+            write_csv([], self.path, header=("fio", "birthdate", "group", "gpa"))
+
+    def _read_all(self) -> List[Dict[str, str]]:
+        if not self.path.exists():
+            return []
+
+        with self.path.open("r", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            return list(reader)
+
+    def _write_all(self, rows: List[Dict[str, str]]) -> None:
+        if rows:
+            header = tuple(rows[0].keys())
+            tuple_rows = [tuple(row.values()) for row in rows]
+            write_csv(tuple_rows, self.path, header=header)
+        else:
+            write_csv([], self.path, header=("fio", "birthdate", "group", "gpa"))
+
+    def list(self) -> List[Student]:
+        rows = self._read_all()
+        students = []
+        for row in rows:
+            try:
+                row_copy = row.copy()
+                row_copy["gpa"] = float(row_copy["gpa"])
+                student = Student.from_dict(row_copy)
+                students.append(student)
+            except (ValueError, KeyError) as e:
+                print(f"Warning: Skipping invalid record: {row}. Error: {e}")
+        return students
+
+    def add(self, student: Student) -> None:
+        rows = self._read_all()
+        student_dict = student.to_dict()
+        student_dict["gpa"] = str(student_dict["gpa"])
+        rows.append(student_dict)
+        self._write_all(rows)
+
+    def find(self, substr: str) -> List[Student]:
+        all_students = self.list()
+        return [s for s in all_students if substr.lower() in s.fio.lower()]
+
+    def remove(self, fio: str) -> int:
+        rows = self._read_all()
+        initial_count = len(rows)
+        rows = [r for r in rows if r["fio"] != fio]
+        final_count = len(rows)
+        self._write_all(rows)
+        return initial_count - final_count
+
+    def update(self, fio: str, **fields) -> bool:
+        rows = self._read_all()
+        updated = False
+
+        for row in rows:
+            if row["fio"] == fio:
+                for key, value in fields.items():
+                    if key in row:
+                        if key == "gpa":
+                            row[key] = str(value)
+                        else:
+                            row[key] = str(value)
+                updated = True
+                break
+
+        if updated:
+            self._write_all(rows)
+        return updated
+
+    def stats(self) -> Dict[str, Any]:
+        students = self.list()
+
+        if not students:
+            return {
+                "count": 0,
+                "min_gpa": None,
+                "max_gpa": None,
+                "avg_gpa": None,
+                "groups": {},
+                "top_5_students": [],
+            }
+
+        gpas = [s.gpa for s in students]
+        count = len(students)
+        min_gpa = min(gpas)
+        max_gpa = max(gpas)
+        avg_gpa = sum(gpas) / count
+
+        groups = {}
+        for s in students:
+            groups[s.group] = groups.get(s.group, 0) + 1
+
+        top_students = sorted(students, key=lambda s: s.gpa, reverse=True)[:5]
+        top_5_students = [{"fio": s.fio, "gpa": s.gpa} for s in top_students]
+
+        return {
+            "count": count,
+            "min_gpa": min_gpa,
+            "max_gpa": max_gpa,
+            "avg_gpa": round(avg_gpa, 2),
+            "groups": groups,
+            "top_5_students": top_5_students,
+        }
+
+    def export_to_json(self, json_path: str) -> None:
+        csv_to_json(self.path, json_path)
+```
+
+## Пример работы
+
+![Картинка 1](./images/lab_09.png)
+
+### Лабораторная работа 10

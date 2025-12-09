@@ -2,14 +2,12 @@ from typing import Any
 
 
 class Node:
-
     def __init__(self, value: Any):
         self.value = value
         self.next: "Node" | None = None
 
 
 class SinglyLinkedList:
-
     def __init__(self):
         self.head: Node | None = None
         self.tail: Node | None = None

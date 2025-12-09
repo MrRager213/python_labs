@@ -3,7 +3,6 @@ from src.lib.text import normalize, tokenize, count_freq, top_n
 
 
 class TestNormalize:
-
     @pytest.mark.parametrize(
         "source, expected",
         [
@@ -30,7 +29,6 @@ class TestNormalize:
 
 
 class TestTokenize:
-
     @pytest.mark.parametrize(
         "source, expected",
         [
@@ -53,7 +51,6 @@ class TestTokenize:
 
 
 class TestCountFreq:
-
     def test_count_freq_basic(self):
         tokens = ["я", "люблю", "python", "python", "люблю", "я", "я"]
         result = count_freq(tokens)
@@ -73,7 +70,6 @@ class TestCountFreq:
 
 
 class TestTopN:
-
     def test_top_n_basic(self):
         freq = {"я": 5, "ты": 3, "он": 7, "она": 2}
         result = top_n(freq, 3)
@@ -105,7 +101,6 @@ class TestTopN:
 
 
 class TestIntegration:
-
     def test_full_pipeline(self):
         text = "Привет мир! Привет всем. Мир прекрасен."
 

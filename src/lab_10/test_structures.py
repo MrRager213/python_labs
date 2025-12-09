@@ -11,7 +11,6 @@ from lab_10.linked_list import SinglyLinkedList, Node
 
 
 class TestStack(unittest.TestCase):
-
     def setUp(self):
         self.stack = Stack()
 
@@ -49,7 +48,6 @@ class TestStack(unittest.TestCase):
 
 
 class TestQueue(unittest.TestCase):
-
     def setUp(self):
         self.queue = Queue()
 
@@ -87,7 +85,6 @@ class TestQueue(unittest.TestCase):
 
 
 class TestNode(unittest.TestCase):
-
     def test_init(self):
         node = Node(42)
         self.assertEqual(node.value, 42)
@@ -95,7 +92,6 @@ class TestNode(unittest.TestCase):
 
 
 class TestSinglyLinkedList(unittest.TestCase):
-
     def setUp(self):
         self.ll = SinglyLinkedList()
 

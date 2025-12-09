@@ -1,5 +1,4 @@
 from pathlib import Path
-from src.lib.io_txt_csv import write_csv
 import json
 import csv
 
@@ -34,7 +33,6 @@ def json_to_csv(
 def csv_to_json(
     csv_path: str | Path, json_path: str | Path, encoding: str = "utf-8"
 ) -> None:
-
     csv_path = Path(csv_path)
 
     if not csv_path.exists():

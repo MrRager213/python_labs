@@ -5,7 +5,6 @@ from src.lib.text import count_freq, tokenize, top_n
 
 
 def main():
-
     parser = argparse.ArgumentParser(description="CLI-утилиты лабораторной №6")
 
     subparsers = parser.add_subparsers(dest="command")
@@ -32,7 +31,6 @@ def main():
         raise FileNotFoundError(f"Файл {filepath} не найден")
 
     if args.command == "cat":
-
         with filepath.open("r", encoding="utf-8") as f:
             num = 1
             for line in f:
@@ -44,7 +42,6 @@ def main():
                     print(line)
 
     elif args.command == "stats":
-
         content = [i for i in filepath.open("r", encoding="utf-8")]
         tokens = tokenize(text="".join(content))
         freq = count_freq(tokens=tokens)

@@ -1,5 +1,4 @@
 import sys
-from ..lib.text import normalize
 from src.lib.table import print_summary
 
 

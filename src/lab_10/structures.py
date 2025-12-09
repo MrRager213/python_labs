@@ -3,7 +3,6 @@ from typing import Any
 
 
 class Stack:
-
     def __init__(self):
         self._data: list[Any] = []
 
@@ -31,7 +30,6 @@ class Stack:
 
 
 class Queue:
-
     def __init__(self):
         self._data: deque[Any] = deque()
 

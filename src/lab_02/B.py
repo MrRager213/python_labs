@@ -1,4 +1,4 @@
-from src.lib.text import check, transpose, row_sums, col_sums
+from src.lib.text import transpose, row_sums, col_sums
 
 
 print("[[1, 2, 3]] -", transpose([[1, 2, 3]]))
