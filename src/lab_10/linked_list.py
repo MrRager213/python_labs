@@ -5,7 +5,7 @@ class Node:
 
     def __init__(self, value: Any):
         self.value = value
-        self.next: 'Node' | None = None
+        self.next: "Node" | None = None
 
 
 class SinglyLinkedList:

@@ -14,7 +14,9 @@ class Student:
         try:
             datetime.strptime(self.birthdate, "%Y-%m-%d")
         except ValueError:
-            raise ValueError(f"Invalid birthdate format: {self.birthdate}. Expected format: YYYY-MM-DD")
+            raise ValueError(
+                f"Invalid birthdate format: {self.birthdate}. Expected format: YYYY-MM-DD"
+            )
 
         if not (0 <= self.gpa <= 5):
             raise ValueError(f"GPA must be between 0 and 5, got: {self.gpa}")
@@ -23,7 +25,9 @@ class Student:
         birth_date = datetime.strptime(self.birthdate, "%Y-%m-%d").date()
         today = date.today()
         age = today.year - birth_date.year
-        if today.month < birth_date.month or (today.month == birth_date.month and today.day < birth_date.day):
+        if today.month < birth_date.month or (
+            today.month == birth_date.month and today.day < birth_date.day
+        ):
             age -= 1
         return age
 
@@ -32,16 +36,13 @@ class Student:
             "fio": self.fio,
             "birthdate": self.birthdate,
             "group": self.group,
-            "gpa": self.gpa
+            "gpa": self.gpa,
         }
 
     @classmethod
     def from_dict(cls, d: dict):
         return cls(
-            fio=d["fio"],
-            birthdate=d["birthdate"],
-            group=d["group"],
-            gpa=d["gpa"]
+            fio=d["fio"], birthdate=d["birthdate"], group=d["group"], gpa=d["gpa"]
         )
 
     def __str__(self):

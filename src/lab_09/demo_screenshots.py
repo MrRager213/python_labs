@@ -1,13 +1,6 @@
-#!/usr/bin/env python3
-"""
-Demo script to generate screenshots for Lab 9.
-This script shows examples of all CRUD operations.
-"""
-
 from src.lab_08.models import Student
 from src.lab_09.group import Group
 
-""" python3 -m src.lab09.demo_screenshots """
 
 def demo_crud_operations():
     print("=== Демонстрация CRUD-операций с группой студентов ===\n")
@@ -26,7 +19,7 @@ def demo_crud_operations():
         fio="Новиков Николай Николаевич",
         birthdate="2004-02-29",
         group="БИВТ-21-4",
-        gpa=4.5
+        gpa=4.5,
     )
     group.add(new_student)
     print(f"  Добавлен: {new_student}\n")
@@ -74,7 +67,7 @@ def demo_crud_operations():
     print(f"  Максимальный GPA: {stats['max_gpa']}")
     print(f"  Средний GPA: {stats['avg_gpa']}")
     print("  Студентов по группам:")
-    for group_name, count in stats['groups'].items():
+    for group_name, count in stats["groups"].items():
         print(f"    {group_name}: {count}")
     print()
     print("10. Экспорт данных в JSON:")

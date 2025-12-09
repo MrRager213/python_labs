@@ -14,9 +14,11 @@ class TestNormalize:
             ("", ""),  # пустая строка
             ("   ", ""),  # только пробелы
             ("\n\t\r   ", ""),  # управляющие символы и пробелы
-            ("Съешь ещё этих мягких французских булок",
-             "съешь еще этих мягких французских булок"),
-        ]
+            (
+                "Съешь ещё этих мягких французских булок",
+                "съешь еще этих мягких французских булок",
+            ),
+        ],
     )
     def test_normalize(self, source, expected):
         assert normalize(source) == expected
@@ -39,7 +41,7 @@ class TestTokenize:
             ("!!! ??? ...", []),  # только пунктуация
             ("word1 word2 word3", ["word1", "word2", "word3"]),
             ("Он сказал: 'Привет!'", ["он", "сказал", "привет"]),
-        ]
+        ],
     )
     def test_tokenize(self, source, expected):
         assert tokenize(source) == expected

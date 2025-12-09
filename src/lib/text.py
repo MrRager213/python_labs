@@ -1,23 +1,24 @@
+import re
 from re import finditer
 
 
 def format_record(rec: tuple[str, str, float]) -> str:
     group, gpa = rec[1], rec[2]
     name = rec[0].split()
-    fio = name[0].capitalize() + ' ' + name[1][0].upper() + '.'
+    fio = name[0].capitalize() + " " + name[1][0].upper() + "."
     if len(name) == 3:
-        fio += ' '
-        fio += name[-1][0].upper() + '.'
-    return f'{fio}, гр. {group}, GPA {gpa:.2f}'
+        fio += " "
+        fio += name[-1][0].upper() + "."
+    return f"{fio}, гр. {group}, GPA {gpa:.2f}"
 
 
 def normalize(text: str, *, casefold: bool = True, yo2e: bool = True) -> str:
     if casefold:
         text = text.casefold()
     if yo2e:
-        while 'Ё' in text or 'ё' in text:
+        while "Ё" in text or "ё" in text:
             text = text.replace("ё", "е").replace("Ё", "Е")
-    while '\t' in text or '\r' in text or '\n' in text:
+    while "\t" in text or "\r" in text or "\n" in text:
         text = text.replace("\t", " ").replace("\r", " ").replace("\n", " ")
     while "  " in text:
         text = text.replace(" " * 2, " ")
@@ -25,14 +26,20 @@ def normalize(text: str, *, casefold: bool = True, yo2e: bool = True) -> str:
 
 
 def tokenize(text: str) -> list[str]:
-    return [i.group() for i in finditer(pattern=r"\w+(?:-\w+)*", string=text)]
+    text = text.lower()
+
+    pattern = r"[\wа-яё]+"
+
+    return re.findall(pattern, text)
 
 
 def count_freq(tokens: list[str]) -> dict[str, int]:
     co = {}
     for i in tokens:
-        if i in co: co[i] += 1
-        else:  co[i] = 1
+        if i in co:
+            co[i] += 1
+        else:
+            co[i] = 1
     return co
 
 

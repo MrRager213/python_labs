@@ -20,7 +20,9 @@ def main():
 
     stats_parser.add_argument("--input", required=True, help="Путь к текстовому файлу")
 
-    stats_parser.add_argument("--top", type=int, default=5, help="Количество наиболее частых слов")
+    stats_parser.add_argument(
+        "--top", type=int, default=5, help="Количество наиболее частых слов"
+    )
 
     args = parser.parse_args()
 

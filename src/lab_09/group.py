@@ -93,7 +93,7 @@ class Group:
                 "max_gpa": None,
                 "avg_gpa": None,
                 "groups": {},
-                "top_5_students": []
+                "top_5_students": [],
             }
 
         gpas = [s.gpa for s in students]
@@ -115,8 +115,8 @@ class Group:
             "max_gpa": max_gpa,
             "avg_gpa": round(avg_gpa, 2),
             "groups": groups,
-            "top_5_students": top_5_students
+            "top_5_students": top_5_students,
         }
 
     def export_to_json(self, json_path: str) -> None:
-         csv_to_json(self.path, json_path)
+        csv_to_json(self.path, json_path)

@@ -5,7 +5,7 @@ import sys
 import os
 import time
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from lab_10.structures import Stack, Queue
 from lab_10.linked_list import SinglyLinkedList
@@ -176,12 +176,22 @@ def compare_structures():
             lst_queue.pop(0)
     list_queue_dequeue_time = time.time() - start
 
-    print(f"{'Операция':<30} {'Stack':<12} {'Queue':<12} {'LinkedList':<12} {'Python List':<12}")
+    print(
+        f"{'Операция':<30} {'Stack':<12} {'Queue':<12} {'LinkedList':<12} {'Python List':<12}"
+    )
     print("-" * 75)
-    print(f"{'Вставка (push/enqueue/append)':<30} {stack_push_time:<12.6f} {queue_enqueue_time:<12.6f} {ll_append_time:<12.6f} {list_append_time:<12.6f}")
-    print(f"{'Извлечение (pop/dequeue/pop)':<30} {stack_pop_time:<12.6f} {queue_dequeue_time:<12.6f} {ll_remove_time:<12.6f} {list_pop_time:<12.6f}")
-    print(f"{'Вставка в начало':<30} {'-':<12} {'-':<12} {ll_prepend_time:<12.6f} {'Очень медл.':<12}")
-    print(f"{'Очередь (pop(0) - неэфф.)':<30} {'-':<12} {'-':<12} {'-':<12} {list_queue_dequeue_time:<12.6f}")
+    print(
+        f"{'Вставка (push/enqueue/append)':<30} {stack_push_time:<12.6f} {queue_enqueue_time:<12.6f} {ll_append_time:<12.6f} {list_append_time:<12.6f}"
+    )
+    print(
+        f"{'Извлечение (pop/dequeue/pop)':<30} {stack_pop_time:<12.6f} {queue_dequeue_time:<12.6f} {ll_remove_time:<12.6f} {list_pop_time:<12.6f}"
+    )
+    print(
+        f"{'Вставка в начало':<30} {'-':<12} {'-':<12} {ll_prepend_time:<12.6f} {'Очень медл.':<12}"
+    )
+    print(
+        f"{'Очередь (pop(0) - неэфф.)':<30} {'-':<12} {'-':<12} {'-':<12} {list_queue_dequeue_time:<12.6f}"
+    )
     print()
 
 

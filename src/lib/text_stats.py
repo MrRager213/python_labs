@@ -4,8 +4,8 @@ from src.lib.table import print_summary
 
 
 def main():
-     IS_TABLE = True
-     print_summary(text=sys.stdin.read(), is_table=IS_TABLE)
+    IS_TABLE = True
+    print_summary(text=sys.stdin.read(), is_table=IS_TABLE)
 
 
 main()

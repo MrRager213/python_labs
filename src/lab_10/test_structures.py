@@ -4,7 +4,7 @@ import sys
 import os
 import unittest
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from lab_10.structures import Stack, Queue
 from lab_10.linked_list import SinglyLinkedList, Node

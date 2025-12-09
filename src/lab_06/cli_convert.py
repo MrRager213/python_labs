@@ -7,26 +7,44 @@ from src.lib.json_csv import csv_to_json, json_to_csv
 def main():
 
     parser = argparse.ArgumentParser(description="CLI-утилиты лабораторной №6")
-    
+
     subparsers = parser.add_subparsers(dest="command")
 
-    json2csv_parser = subparsers.add_parser("json2csv", help="Конвертировать JSON в CSV")
+    json2csv_parser = subparsers.add_parser(
+        "json2csv", help="Конвертировать JSON в CSV"
+    )
 
-    json2csv_parser.add_argument("--in", dest="input", required=True, help="Путь к JSON-файлу")
+    json2csv_parser.add_argument(
+        "--in", dest="input", required=True, help="Путь к JSON-файлу"
+    )
 
-    json2csv_parser.add_argument("--out", dest="output", required=True, help="Путь для CSV-файла")
+    json2csv_parser.add_argument(
+        "--out", dest="output", required=True, help="Путь для CSV-файла"
+    )
 
-    csv2json_parser = subparsers.add_parser("csv2json", help="Конвертировать CSV в JSON")
+    csv2json_parser = subparsers.add_parser(
+        "csv2json", help="Конвертировать CSV в JSON"
+    )
 
-    csv2json_parser.add_argument("--in", dest="input", required=True, help="Путь к CSV-файлу")
+    csv2json_parser.add_argument(
+        "--in", dest="input", required=True, help="Путь к CSV-файлу"
+    )
 
-    csv2json_parser.add_argument("--out", dest="output", required=True, help="Путь для JSON-файла")
+    csv2json_parser.add_argument(
+        "--out", dest="output", required=True, help="Путь для JSON-файла"
+    )
 
-    csv2xlsx_parser = subparsers.add_parser("csv2xlsx", help="Конвертировать CSV в XLSX")
+    csv2xlsx_parser = subparsers.add_parser(
+        "csv2xlsx", help="Конвертировать CSV в XLSX"
+    )
 
-    csv2xlsx_parser.add_argument("--in", dest="input", required=True, help="Путь к CSV-файлу")
+    csv2xlsx_parser.add_argument(
+        "--in", dest="input", required=True, help="Путь к CSV-файлу"
+    )
 
-    csv2xlsx_parser.add_argument("--out", dest="output", required=True, help="Путь для XLSX-файла")
+    csv2xlsx_parser.add_argument(
+        "--out", dest="output", required=True, help="Путь для XLSX-файла"
+    )
 
     args = parser.parse_args()
 
