@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-"""Бенчмарк для структур данных."""
 
 import sys
 import os
